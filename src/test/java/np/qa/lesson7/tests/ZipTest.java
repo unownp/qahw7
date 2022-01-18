@@ -2,8 +2,6 @@ package np.qa.lesson7.tests;
 
 import com.codeborne.pdftest.PDF;
 import com.codeborne.xlstest.XLS;
-import com.opencsv.CSVParser;
-import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import np.qa.lesson7.base.ZipHelper;
 import org.junit.jupiter.api.Test;
@@ -39,7 +37,7 @@ public class ZipTest extends ZipHelper {
                             );
                 }
             } else if (listNames.get(i).endsWith(".xlsx")) {
-                // System.out.println(listNames.get(i));
+
                 try (InputStream stream = zipFile.getInputStream(zipEntry)) {
                     XLS parsed = new XLS(stream);
                     assertEquals(parsed.excel.getSheetAt(0).getRow(1).getCell(2).getStringCellValue(),
@@ -48,7 +46,7 @@ public class ZipTest extends ZipHelper {
             } else if (listNames.get(i).endsWith(".pdf")) {
                 try (InputStream stream = zipFile.getInputStream(zipEntry)) {
                     PDF parsed = new PDF(stream);
-                    //System.out.println(parsed.numberOfPages);
+
                     assertEquals(parsed.numberOfPages, 17);
                 }
             }
